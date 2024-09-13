@@ -1,0 +1,62 @@
+###############
+REST ASSURED
+###############
+
+Rest Assured is an API/Library which supports automation of Rest API's
+
+Pre-Requisites
+#############
+Java 9+ 
+Eclipse
+Test NG
+Maven
+Cucumber no need to add separately as Rest assured supports by default BDD syntax
+Group ID - Project Name
+Artifact ID - Package Name
+
+Dependencies:
+
+https://github.com/rest-assured/rest-assured/wiki/GettingStarted
+
+REST Assured, 
+JsonPath
+XmlPath
+JSON Schema Validation
+json
+gson
+testng
+scribejava-apis
+json-schema-validator
+xml-schema-validator
+
+Http Requests -- > Get, Post, Put and Delete mainly
+
+Gherkin Keywords --> Given, when and then based on BDD reference, which are basically methods
+
+Automation script can be devided into three parts:
+
+given() ---------> What are the pre-requisites -- headers, cookies, authoriztion, body, query and path parameters. Given can be ignored and FIrst method will not have .
+.when() --------------> Request type given here like get, put, post and delete
+.then() -----------> All validations are given here like status code, response time, response body, cookie and headers
+
+Import static page for above: Refer Static imports in above rest assured documentations
+
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+https://reqres.in/api/users/2
+
+https://reqres.in/api/users
+
+{
+    "name": "morpheus",
+    "job": "leader"
+}
+
+
+
+https://reqres.in/api/users?page=2&id=5 --- api and users is path parameters and after ? page =2 and id = 5 is query parameter
+
+Parsing Response Body:
+Add dependencies in pom.xml json, gson jsonpath, xmlpath
