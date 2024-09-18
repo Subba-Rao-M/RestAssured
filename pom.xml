@@ -28,21 +28,7 @@
     </dependencies>
   </dependencyManagement>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <!-- Optionally: parameterized tests support -->
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-params</artifactId>
-      <scope>test</scope>
-    </dependency>
-    
-    
-    
+  <dependencies>   
     
     <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
 	<dependency>
@@ -154,11 +140,19 @@
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.13.0</version>
+          
         </plugin>
         <plugin>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>3.3.0</version>
-        </plugin>
+			       <groupId>org.apache.maven.plugins</groupId>
+			       <artifactId>maven-surefire-plugin</artifactId>
+			       <version>3.0.0-M7</version>
+			        <configuration>
+		          	<suiteXmlFiles>
+		          	      		 <suiteXmlFile>testng.xml</suiteXmlFile>
+		          	</suiteXmlFiles>
+		          
+		          </configuration>
+			   </plugin>
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.4.2</version>

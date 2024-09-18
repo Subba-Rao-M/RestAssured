@@ -60,3 +60,51 @@ https://reqres.in/api/users?page=2&id=5 --- api and users is path parameters and
 
 Parsing Response Body:
 Add dependencies in pom.xml json, gson jsonpath, xmlpath
+
+
+
+
+
+Rest Assured Framework development:
+Framework objectives:
+Re-usability
+Maintainability
+Readability 
+
+Phases of framework development:
+
+1. Understand the requirement using functional specification and swaggers
+2. Choose automation tool --> ex: rest assured library based on budget, skillset and type of applications and POC
+3. Design Framework --> Folder structure, what kind of files
+4. Develop the codes
+5. Execute the test cases
+
+
+Framework Structure:
+
+End Points -------------> Test Cases ---------------> TestNg.xml ----- > POM.xml --- > Git/GitHub --> Jenkins
+
+							|								|												|
+							
+Proprties		Payloads 		Utilities  Test Data		Reports	                 <--------------------------							
+
+
+Create Maven project
+Update required dependencies to download reqiured jar files
+
+
+src/test/java
+api.endpoints --> Route file/ or refer from properties and module specific end point files
+	route.java -- > contains only urls
+	UserEndPoints.java --> User specific end points CRUD methods are created here
+api.payload ----> Pojo classes
+api.test ---> test cases
+api.utilities --> data providers, excel/json data readers / extent reports config
+	Excel Utility
+	Data Providers
+	Extent Reports -- add extentreportmanager and listener in testng.xml file
+src/test/resources
+route.properties
+test data
+Configuring logs -- > add dependencies for api and core for org.apache.logging.log4j and create log4j2.xml
+

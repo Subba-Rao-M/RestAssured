@@ -3,11 +3,12 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="schemaValidation.SchemaValidations">
+      <class name="api.tests.UserTestswithPropFile">
         <methods>
-          <include name="jsonSchemaValidation"/>
+          <include name="test_getUserByName"/>
+          <include name="setUpData"/>
         </methods>
-      </class> <!-- schemaValidation.SchemaValidations -->
+      </class> <!-- api.tests.UserTestswithPropFile -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
