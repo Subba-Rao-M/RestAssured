@@ -29,7 +29,7 @@ public class CookiesDemo {
 	
 	@Test(priority=2)
 	void testGetCookiesInfo() {
-		Response res= given() // res has headers, cookie and body, etch all details
+		Response res= given() // res has headers, cookie and body, fetch all details
 		.when()
 			.get("https://www.google.com");
 		
@@ -43,7 +43,7 @@ public class CookiesDemo {
 
 	@Test(priority=3)
 	void testGetAllCookiesInfo() {
-		Response res= given() // res has headers, cookie and body, etch all details
+		Response res= given() // res has headers, cookie and body, fetch all details
 		.when()
 			.get("https://www.google.com");
 		

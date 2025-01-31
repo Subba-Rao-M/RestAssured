@@ -34,7 +34,7 @@ public class HeadersDemo {
 	
 	@Test(priority=2)
 	void testGetHeaderInfo() {
-		Response res= given() // res has headers, cookie and body, etch all details
+		Response res= given() // res has headers, cookie and body, fetch all details
 		.when()
 			.get("https://www.google.com");
 		
@@ -48,7 +48,7 @@ public class HeadersDemo {
 
 	@Test(priority=3)
 	void testGetAllHeadersInfo() {
-		Response res= given() // res has headers, cookie and body, etch all details
+		Response res= given() // res has headers, cookie and body, fetch all details
 		.when()
 			.get("https://www.google.com");
 		

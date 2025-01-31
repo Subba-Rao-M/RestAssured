@@ -1,0 +1,532 @@
+What are WebServices:
+
+Method of communication between two applications using world wide web.
+Web service is collection of operations like search hotel with destinations, search rental cars with destinations, search destination packages for provided details
+
+British Aiways -- Book Ticket - at the end show hotel recommendations from bookhotels.com- 
+Britiesh airways developed using java
+Book hotel developed using .net
+Payment gateway using paypal - paypal requests email and password and then internally performs required operation and sends back response
+
+Hotel.com will provides list of hotels as webservice
+
+Web Service is independent of any programming language 
+It works on http protocal
+
+Types of WebServices:
+
+1. Simple object access protocal(SOAP)
+2. Representational State Transfer(REST) - Architecture style not protocal
+
+SOAP uses XML and REST uses JSON to send request and response
+
+
+Simple object access protocal(SOAP):
+1. Expects standards or protocal to send and request for response
+2. Sending and receiving messages using standard protocal between two applications
+3. SOAP uses XML language
+4. Soap envelop is root element which has information related to server to hit and also which contains headers and body as child elements
+5. Soap fault indicating response with error codes
+
+WSDL - Web service description language and also called as Contract of webservice
+WSDL is heart of soap web service
+WSDL is a XML document which describes web service
+in wsdl file binding provides the list of operations supported by web service
+then from operation list for operation name go to Types and check the for operation method what operands required with requirement like data type and if any  validations
+
+http://www.dneonline.com/calculator.asmx?WSDL
+
+
+Difference between Soap and WSDL
+
+Soap message is a XML document used to transmit the data
+WSDL is a XML document used to tell how to connect and make request to your web service
+
+SOAP message is the data you transmit
+WSDL is informing you how to transmit and what to transmit
+
+Soap mesage is a structure you apply to transmit the data
+WSDL is only to describe how to make the call to the service in first place
+
+
+Soap UI Tool:
+
+File - New Project - Soap - Project Name and  Copy the WSDL url - Click Ok
+Project wtih different service versions and request methods inside those services captured and displayed in explorer
+Click on Request -- URL with asmx is end point which we are hitting 
+parameter request values by default displayed with ?
+
+
+To Test the web services test suite and test cases should be created
+
+Right click on project and click on Create New Test Suite and Give test suite name - Ok
+Right Click on Test Suite Created and Click New Test Case - Test Case Name - Ok - Now Test Steps appear in explorer
+Now Right click Test Steps and Add steps - Soap Request - > name of step - Select the method from previos wsdl file req - ok --> Bringing service to test case
+Now request is added and can see + icon to perform validations/assertions
+
+
+Soap WSDL URL to practice http://216.10.245.166:8080/axis2/services/EmployeeManagementService?wsdl
+
+Basic Assertions for Test Validations:
+
+Property Content - Contains - Checks the text in entire response
+Property Content - Not Contains - checks if the text does not contain in response
+Soap Response - Comes by default and checks if the response is in correct format or not
+HTTP Status code assertion 
+Response Time - SLA - Response Time - Enter time 200 for 2secs
+Sensitive information in response - security assertion
+
+Property Content - Xpath Match - Click - Enter the name to identify property - Ok - Click on Declare - Write the XPath of an element by
+Traverse to particular node in XML response - > //ns:getEmployeeDetailsResponse/ns:return/ns:age --> Enter the age to verify - click ok
+
+If declare is not clicked in above xpath will not work
+
+
+To check the attribute/node is displayed in response or not
+
+Add xpath like - exists(//ns:age) and expected value true and Test
+
+To check the user name displayed unique or not
+Only one node with name should be present -- > count(//ns:name) and expected value 1
+
+
+//ns:return -- > click on select from current - result for xpath will be displayed from current response
+Allow wild card checkbox check and enter * for node where value keeps changing in response so test case will pass different value
+
+Fields in disabled in mode are only supported by readyapi pro versions
+
+
+Properties in Soap UI for data driven testing:
+
+Values written inside ${} will be evaluated for data
+
+1) Test Case Level Proprties Access
+	On click of test case there will be 2 options like test case properties and custom properties
+	Click on Custom Proprties and + 
+	Enter name and value for name
+	${#TestCase#Department}
+	Properties cannot be accessed outside test case level
+2) Test suite level properties access
+	Properties will be accessible in all test cases under test suite
+	Right Click on Node/Parameter Value - Click on Get Data - Select the test case or suite level configured properties file data
+	${#TestSuite#name}
+3) project level properties access
+	${#Project#id}
+4) Properties test step
+	Teste Step right click Insert Properties step
+	Scope is specific to test case
+	${Properties#name}
+	Dont have # here
+	Test Case, project and Suite are keywords and properties is custom name given by user
+5) Proprties upload from external file
+	Load properties from external file option in custom proprties
+	Keep a file with key and value pair data and save it as .properties file
+	Decide what level it should be places, test case level, suite level or project level
+	On loading it will ask, dump all or missing and the data will be loaded in custom properties grid
+6) Properties transfer in test step
+	a) In Test Suite level create a custom property name property transfer with empty value (Example considered for name field)
+	b) Now for source request form where response value needs to be transferred right click and Insert Step-  property transfer - Name - ok
+	c) In window, click + and give name
+	d) In Source select the request name, property as response(Observe the test case level for custom property response pre-defined)
+	e) Declare the name space using response tag type and write the xpath to get value to pass
+		declare namespace ns='http://sample.com/reservation/guest/types'
+			//ns:getEmployeeDetailsResponse/ns:return/ns:name/text()
+	f) In Target select the request name and property as request
+	g) Write the name space and xpath for destination request where the value needs to be passed
+		declare namespace typ = 'http://sample.com/reservation/guest/types'
+		//typ:deleteEmployee/typ:employeeName
+		
+	h) Test the data transfer
+	i) Remove the value from tag where data needs to be transferred i.e empty value
+	j) Run the test suite and observe the value in step i above
+
+
+7) Accessing custom properties
+	Go to Node or element where value should be retrieved in request from another requests input
+	${addEmp#Request#//ns:addEmployee/typ:name/text()}
+	In above from add employee request we are fetching name using xpath
+	Above steps 6 and 7 referes to data driving
+
+Clone the test case, step etc to duplicate the same copy and select the target location to move the files
+
+
+Web Service Soap Testing using Automation Script:
+Create Soap Project - > Create Test Suite - > Create Test Cases - > Add Test Steps
+
+Add Step as Groovy Script - > Editor 
+Script is invoked with log, context and test runner variable
+log - used to print logs to console
+log.info "This is my first program"
+Comment line starts with //
+
+conext variable is used to access and modify the properties of test case
+Scope of this context variables lies in test case only
+
+Acess the property of test case and print it in console:
+
+log.info context.expand('${#TestCase#name}')
+log.info context.expand('${#TestCase#age}')
+
+To access the property outside test case level, use testrunner:
+To access any property you have to come through its parent only
+
+testRunner.testCase.testSuite.testCases["GetEmp"].getPropertyValue("id")
+result will display in popup for test runner if log.info not given
+//From testRunner  in current groovy script go higher level for test case and then test suite and then come back to test cases and then get property value
+Go high and navigate to required test case to get property
+
+If property in same test case
+log.info testRunner.testCase.getPropertyValue("hobby")
+
+To access the proprty value from test step from a test case:
+
+log.info testRunner.testCase.testSuite.testCases["GetEmp"].testSteps["GetEmpReq"].getPropertyValue("Request")
+
+To set property value:
+testRunner.testCase.testSuite.testCases["AddEmp"].setPropertyValue("id", "124")
+
+
+testRunner.testCase.testSuite.testCases["AddEmp"].setPropertyValue("id", "124")
+log.info testRunner.testCase.testSuite.testCases["AddEmp"].getPropertyValue("id")
+testRunner.testCase.testSuite.testCases["AddEmp"].setPropertyValue("name", "Tom")
+log.info testRunner.testCase.testSuite.testCases["AddEmp"].getPropertyValue("name")
+testRunner.testCase.testSuite.testCases["AddEmp"].setPropertyValue("age", "38")
+log.info testRunner.testCase.testSuite.testCases["AddEmp"].getPropertyValue("age")
+testRunner.testCase.testSuite.testCases["AddEmp"].setPropertyValue("Department", "QA")
+log.info testRunner.testCase.testSuite.testCases["AddEmp"].getPropertyValue("Department")
+
+To vet value from project level:
+
+log.info testRunner.testCase.testSuite.Project.getPropertyValue("projectname")
+
+def project = testRunner.testCase.testSuite.Project
+log.info project.getPropertyValue("projectname")
+
+Request XML is stored in custom proprties of test step
+
+//To create XML holder class to hold the data to send in updated request
+import com.eviware.soapui.support.XmlHolder 
+//To run the test cases with updated request parameters
+import com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext 
+
+/Add employee with property form test case level
+
+def addEmpReq = testRunner.testCase.testSuite.testCases["AddEmp"].testSteps["AddEmpReq"].getPropertyValue("Request")
+
+def addempXML= new XmlHolder(addEmpReq) // Create a class of xmlholder and add the above referene path to class
+def name = testRunner.testCase.testSuite.testCases["AddEmp"].getPropertyValue("name")
+addempXML.setNodeValue("//typ:addEmployee/typ:name", name)
+def id = testRunner.testCase.testSuite.testCases["AddEmp"].getPropertyValue("id")
+addempXML.setNodeValue("//typ:addEmployee/typ:id", id)
+def dept = testRunner.testCase.testSuite.testCases["AddEmp"].getPropertyValue("Department")
+addempXML.setNodeValue("//typ:addEmployee/typ:Department", dept)
+def age = testRunner.testCase.testSuite.testCases["AddEmp"].getPropertyValue("age")
+addempXML.setNodeValue("//typ:addEmployee/typ:age", age)
+//Save the above XML modified
+
+def newAddempXML = addempXML.getXml()
+log.info newAddempXML
+
+//Set the request value for add employee with updated xml node data values
+testRunner.testCase.testSuite.testCases["AddEmp"].testSteps["AddEmpReq"].setPropertyValue("Request", newAddempXML )
+
+//To run the test cases
+// addTestStep.run(testRunner, context)
+//Define test step path
+
+def addEmpTestStep = testRunner.testCase.testSuite.testCases["AddEmp"].testSteps["AddEmpReq"]
+//define test context using wsdl runner class
+def contextAddEmp = new WsdlTestRunContext(addEmpTestStep)
+
+//Run the test case step with updated xml data and test context
+addEmpTestStep.run(testRunner, contextAddEmp)
+//To run the test case we need 2 variables testRunner and context, context is created using test step for request and wsdltestruncontextclass
+
+//Hit the GetEmployee and generate the response and validate the response for name value from above
+
+def getEmpReq = testRunner.testCase.testSuite.testCases["GetEmp"].testSteps["GetEmpReq"].getPropertyValue("Request")
+def getempXML= new XmlHolder(getEmpReq)
+getempXML.setNodeValue("//typ:getEmployeeDetails/typ:employeeName", name)
+def newGetEmpXML = getempXML.getXml()
+testRunner.testCase.testSuite.testCases["GetEmp"].testSteps["GetEmpReq"].setPropertyValue("Request", newGetEmpXML )
+def getEmpTestStep = testRunner.testCase.testSuite.testCases["GetEmp"].testSteps["GetEmpReq"]
+def contextGetEmp = new WsdlTestRunContext(getEmpTestStep)
+getEmpTestStep.run(testRunner, contextGetEmp)
+
+
+//Validations
+def getEmpRes = testRunner.testCase.testSuite.testCases["GetEmp"].testSteps["GetEmpReq"].getPropertyValue("Response")
+def getempXMLRes= new XmlHolder(getEmpRes)
+def GetResName = getempXMLRes.getNodeValue("//ns:getEmployeeDetailsResponse/ns:return/ns:name")
+log.info GetResName
+
+//Assert
+assert GetResName == name
+
+//Delete the above employee
+
+//Hit the DeleteEmployee and generate the response and validate the response for name value from above
+
+def delEmpReq = testRunner.testCase.testSuite.testCases["DeleteEmp"].testSteps["DeleteEmpReq"].getPropertyValue("Request")
+def delempXML= new XmlHolder(delEmpReq)
+delempXML.setNodeValue("typ:deleteEmployee/typ:employeeName", name)
+def newDelEmpXML = delempXML.getXml()
+testRunner.testCase.testSuite.testCases["DeleteEmp"].testSteps["DeleteEmpReq"].setPropertyValue("Request", newDelEmpXML )
+def delEmpTestStep = testRunner.testCase.testSuite.testCases["DeleteEmp"].testSteps["DeleteEmpReq"]
+def contextDelEmp = new WsdlTestRunContext(delEmpTestStep)
+delEmpTestStep.run(testRunner, contextDelEmp)
+
+XmlHolder class is used for both set and get node values from xml request or response
+
+REST API Testing:
+
+API - Application programming interface
+Client - UI/Front side
+Server - Backend - code/databases
+
+IF hotels.com wants to display mariotte hotel for reservation, it will ask for API from mariotte
+the technology used by hotels and mariotte are different
+Both communicates using API
+API works on http request and response
+When API hosted on world wide web it is called web service
+Representation of data in different format
+XML and JSON are used by all programming languages
+Only required methods are exposed to Hotels.com by using API
+There will be no interaction bewtween Hotels.com and Mariotte
+everything happens through API
+API is interface or communication protocal between client and server
+Rest is light weight protocal compare to soap for communication
+Rest is easy to build and maintain
+Rest is the arhitectural design to host the APIs
+
+
+End Point / Base URI - Address where API is hosted on server
+
+HTTP Methods commonly used : PUT, POST, GET and Delete used for CRUD operations
+
+Get: used to retrieve the data from server using URI
+NO playload / body required
+SHould only retrieve data and no impact on data on server
+To send input data in Get request: use query parameter
+
+Post - Used to send data to server using URI
+Playload includes the data to be sent
+PUT - To update the data in server i.e existing resource and body can include only inputs which needs to be updated
+
+Delete - TO delete the particular record in server
+
+
+Resouces - APIs or collections which can be accessed from server
+https://www.google.com/maps
+https://www.google.com/search
+https://www.google.com/images
+
+Path Parameter - variable parts of URL path
+Used to point to specific resource within a collection
+It is like sub resource
+like user identified by id
+https://amazon.com/orders/1112
+
+
+Query Parameter - used to sort or filter the resource
+Query parameter starts with ?
+https://amazon.com/orders?sort_by=2/20/2024
+Here is existing resource is filtered
+https://www.google.com/search?q=newyork&rlz=1C1GCEA_enIN1137IN1137&oq=newyork
+
+
+End point or request is constructed as below:
+
+(Base URL)/(Resource)/(Path/Query Parameter)
+
+Headers / Cookies:
+Headers represent the meta data associated with the API request and response
+Additional details sent with API to process the request
+Ex: Authorization details or handshake details like language, content type
+
+Creating REST API Testing Project in Soap UI:
+
+Enter the Base URI where API is hosted: https://rahulshettyacademy.com and click Ok
+Rename the project
+Click on Request - Observe methods drop down list, end point, resource and parameter fields
+
+Complete URL : https://rahulshettyacademy.com/maps/api/place/add/json?key= qaclick123
+Post Request method:
+base Url: https://rahulshettyacademy.com 
+End Point: /maps/api/place/add/json
+Query parameter : ?key=qaclick123
+
+Json request body:
+{
+  "location": {
+    "lat": -38.383494,
+    "lng": 33.427362
+  },
+  "accuracy": 50,
+  "name": "Frontline house",
+  "phone_number": "(+91) 983 893 3937",
+  "address": "29, side layout, cohen 09",
+  "types": [
+    "shoe park",
+    "shop"
+  ],
+  "website": "http://google.com",
+  "language": "French-IN"
+}
+ 
+Creating request using complete URL - New Rest Service from URI and enter above complete URL and Ok
+
+Response:
+
+{
+   "status": "OK",
+   "place_id": "6eeb5b2fdbb177c4ba7558aef4bf146e",
+   "scope": "APP",
+   "reference": "bffb71abefbe166cc8233d670f64583dbffb71abefbe166cc8233d670f64583d",
+   "id": "bffb71abefbe166cc8233d670f64583d"
+}
+
+get complete url: http://rahulshettyacademy.com/maps/api/place/get/json?place_id=xxxx&key=qaclick123
+
+http://rahulshettyacademy.com/maps/api/place/get/json?place_id=6eeb5b2fdbb177c4ba7558aef4bf146e&key=qaclick123
+
+Response:
+
+{
+   "location":    {
+      "latitude": "-38.383494",
+      "longitude": "33.427362"
+   },
+   "accuracy": "50",
+   "name": "Frontline house",
+   "phone_number": "(+91) 983 893 3937",
+   "address": "29, side layout, cohen 09",
+   "types": "shoe park,shop",
+   "website": "http://google.com",
+   "language": "French-IN"
+}
+
+PUT complete url - http://rahulshettyacademy.com/maps/api/place/update/json?place_id=6eeb5b2fdbb177c4ba7558aef4bf146e&key=qaclick123
+
+Update request body:
+
+{
+"place_id":"6eeb5b2fdbb177c4ba7558aef4bf146e",
+"address":"70 winter walk, USA",
+"key":"qaclick123"
+}
+
+
+Delete complete url - https://rahulshettyacademy.com/maps/api/place/delete/json?key=qaclick123
+
+Request:
+
+{
+    "place_id":"6eeb5b2fdbb177c4ba7558aef4bf146e"
+}
+
+
+Assertions:
+Contains status Ok
+JSON path Existance Match to verify the tag place_id
+valid status code 200
+
+Script Assertion - Click on + look for Script - Script Assertion - Add -- In editor write custom scripts to validate
+Use log to print the output data
+context - information about existing test case
+Message exchange variable - To hold the response variable
+
+import groovy.json.JsonSlurper
+//Get the response for end point using messageExchange variable
+def response = messageExchange.response.responseContent
+//Use JsonSlurper class to parse the json response received above
+def json = new JsonSlurper()
+def jsonParser = json.parseText(response)
+
+//Assert the status message OK
+assert jsonParser.status == "OK"
+//Print the place id value
+log.info jsonParser.place_id 
+//Assign the place id variable received in test case level
+context.getTestCase().setPropertyValue("place_id", jsonParser.place_id)
+//Go and test in test case custom proprties after re-exuection for place id parameter
+
+
+Now Add new test case for Get Place Method
+In place Id parameter get the above value using ${#TestCase#place_id}
+
+for delete method also in playload replace the value with "${#TestCase#place_id}"
+
+JSON Path extraction for responses:
+In Json Response below are referred as
+[] - Arrays
+{ } - Objects
+
+In JSON have to traverse through object to retrieve values:
+https://jsoneditoronline.org/
+
+Assertion - JSON Path Expresssion - Object value - Expected value - Test
+ParentObject.ChildObject -
+If no parent direclty access the object
+Examples:
+photos.pages
+status
+photos.photo - JSON path count - 100
+photos.photo[4].title ---> title value - test 
+
+Grab the server value with id 387564 or title value "sdfs" when u dont know which index it is?
+Syntax:
+photos.photo[?(@.object=='value'].object ---? stands for regular expression
+photos.photo[?(@.id=='387564'].server
+photos.photo[?(@.title=='Books'].server
+
+To get owner value:
+photos.photo[?(@.id=='387564'].owner
+In above cases when using regular expresssion expected result also should be placed inside []
+
+
+photos.photo[4].* --> Display all values related to 5th object
+and paste the result in expected field and test 
+
+JSON Path existance match - returns true or false
+photos.pages - true - > Test
+
+E2E framework development:
+How to run Soap UI test cases using jenkins tool without using Soap Ui tool:
+Develop SOAP UI Java framework
+
+Steps:
+1) Design and develop SOAP UI tests which can be installed in any machine
+2) Save and Store the project file. (Saved project path with .xml) 
+3) Pass this file as input to Soap UI Java Tests. Methods in java have ability to scan and run these tests
+4) Convert these Java test cases to Testng format for better Optimization and robostness in framework maintainanace 
+5) Teigger these testng test cases using Jenkins
+
+
+
+Adding REST API Project:
+Add the URI
+Add the resource to add end points by right click and new resouse for above rest api created
+Click on Rest URI and select generate test suite
+For test base uri, in test suite create a custom property endpoint = url and call this url like #testsuite#endpoint
+
+
+If name space is not available in response xpath will not work with xmlholder and value returns null
+Proper name space required for xpath in soapui
+declare namespace ns1='https://maps.googleapis.com/maps/api/place/nearbysearch/json';
+
+If name space is not predefined in xml response then follow below procedure:
+
+import com.eviware.soapui.support.XmlHolder
+def holder = new XmlHolder(messageExchange.responseContentAsXml)
+holder.namespaces["ns1"]='https://maps.googleapis.com/maps/api/place/textsearch/json';
+//ns1:Response[1]/ns1:results[1]/ns1:e[1]/ns1:reference[1]
+
+//ns1:Response[1]/ns1:results[1]/ns1:e[1]/ns1:reference[1]
+ def actual=holder.getNodeValue("//ns1:Response[1]/ns1:results[1]/ns1:e[1]/ns1:id[1]")
+ def ref=holder.getNodeValue("//ns1:Response[1]/ns1:results[1]/ns1:e[1]/ns1:reference[1]")
+ context.getTestCase().setPropertyValue("reference",ref)
+ def expected =context.getTestCase().getPropertyValue("ID")
+assert actual==expected
+
+Test case level properties can be fetched using context key as well similar to test runner

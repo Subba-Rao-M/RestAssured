@@ -54,7 +54,7 @@ public class HTTPRequest {
 			.post("https://reqres.in/api/users")
 			.jsonPath().getInt("id");
 	}
-	@Test(priority=2, dependsOnMethods= {"createUser"}) // Depends on Method will help to execute the sceipt only dependent method is passed
+	@Test(priority=2, dependsOnMethods= {"createUser"}) // Depends on Method will help to execute the script only dependent method is passed
 	void updateUser() {
 		
 		HashMap data = new HashMap(); // Used to create data in key and value pair

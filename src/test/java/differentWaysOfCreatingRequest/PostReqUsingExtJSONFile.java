@@ -24,7 +24,7 @@ public class PostReqUsingExtJSONFile {
 	@Test
 	void postUserUsingExtJsonFile() throws FileNotFoundException {
 		
-		File file = new File("C:\\MyAutomationLearning\\apiTesting\\src\\test\\java\\myLearningReference\\differentWaysOfCreatingRequest\\Students.json");
+		File file = new File(System.getProperty("user.dir")+"\\src\\test\\java\\differentWaysOfCreatingRequest\\Students.json");
 		
 		FileReader fileReader = new FileReader(file);
 		
