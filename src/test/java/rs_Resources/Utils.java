@@ -25,10 +25,13 @@ public class Utils {
 		if(req==null)
 		{
 		PrintStream log =new PrintStream(new FileOutputStream("logging.txt"));
-		 req=new RequestSpecBuilder().setBaseUri(getGlobalValue("baseUrl")).addQueryParam("key", "qaclick123")
-				 .addFilter(RequestLoggingFilter.logRequestTo(log))
-				 .addFilter(ResponseLoggingFilter.logResponseTo(log))
-		.setContentType(ContentType.JSON).build();
+		 req=new RequestSpecBuilder()
+				 					.setBaseUri(getGlobalValue("baseUrl"))
+				 					.addQueryParam("key", "qaclick123")
+				 					.addFilter(RequestLoggingFilter.logRequestTo(log))
+				 					.addFilter(ResponseLoggingFilter.logResponseTo(log))
+				 					.setContentType(ContentType.JSON)
+				 					.build();
 		 return req;
 		}
 		return req;
@@ -52,7 +55,7 @@ public class Utils {
 	public String getJsonPath(Response response,String key)
 	{
 		  String resp=response.asString();
-		JsonPath   js = new JsonPath(resp);
-		return js.get(key).toString();
+		  JsonPath   js = new JsonPath(resp);
+		  return js.get(key).toString();
 	}
 }

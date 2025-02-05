@@ -153,6 +153,25 @@
     <version>3.0.23</version>
 </dependency>
 
+<dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>3.12.0</version>
+    </dependency>
+
+    <!-- Apache Commons Text (Ensure version is 1.10.0 or later) -->
+    <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-text</artifactId>
+        <version>1.10.0</version>
+    </dependency>
+
+    <!-- Cucumber Reporting by Damian Szczepanik -->
+    <dependency>
+        <groupId>net.masterthought</groupId>
+        <artifactId>cucumber-reporting</artifactId>
+        <version>5.7.4</version>
+    </dependency>
 
   </dependencies>
 

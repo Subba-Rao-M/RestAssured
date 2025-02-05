@@ -44,7 +44,7 @@ public void add_Place_Payload_with(String name, String language, String address)
 @When("user calls {string} with {string} http request")
 public void user_calls_with_http_request(String resource, String method) {
 	    // Write code here that turns the phrase above into concrete actions
-//constructor will be called with value of resource which you pass
+		//constructor will be called with value of resource which you pass
 		APIResources resourceAPI=APIResources.valueOf(resource);
 		System.out.println(resourceAPI.getResource());
 		
@@ -78,10 +78,13 @@ public void user_calls_with_http_request(String resource, String method) {
 	
 	   // requestSpec
 	     place_id=getJsonPath(response,"place_id");
-		 res=given().spec(requestSpecification()).queryParam("place_id",place_id);
-		 user_calls_with_http_request(resource,"GET");
-		  String actualName=getJsonPath(response,"name");
-		  assertEquals(actualName,expectedName);
+		 res=given()
+				 .spec(requestSpecification())
+				 .queryParam("place_id",place_id);
+		 
+		 	user_calls_with_http_request(resource,"GET");
+		 	String actualName=getJsonPath(response,"name");
+		 	assertEquals(actualName,expectedName);
 		 
 	    
 	}
@@ -91,7 +94,9 @@ public void user_calls_with_http_request(String resource, String method) {
 public void deleteplace_Payload() throws IOException {
     // Write code here that turns the phrase above into concrete actions
    
-	res =given().spec(requestSpecification()).body(data.deletePlacePayload(place_id));
+	res =given()
+			.spec(requestSpecification())
+			.body(data.deletePlacePayload(place_id));
 }
 
 
