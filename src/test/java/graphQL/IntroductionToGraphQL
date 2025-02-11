@@ -1,0 +1,63 @@
+GraphQL is a query language and server side runtime execution system for fulfilling queries on existing data
+GraphQL provides schema to get the data
+GraphQL is very fast and flexible
+GraphQL provides schema to get the data from different tables/databases/apis
+From application UI single calls is made to graphql and graphql talks to different apis to get only the data required in UI
+Data is not stored in graphql
+it understands the defined syntax query
+
+Advantages:
+Performance
+Over fetching the data avoided
+
+GraphQL type has data type - similar to java classes
+example For author type you can ask details like id, author name, author age, author address, author posts
+
+Once the developer develops graphql in backend, immediately frontend url will be exposed and available
+
+Graphql can retrieve the data and also create the data in backend
+
+syntax:
+query{
+//character(characterid: int!) ! is mandatory field
+character(characterid: 8){ //for character with id 8 get the details like name
+	name
+}
+location(locationid: 8){ 
+	country
+}
+
+characters(filter: {name="Rahul"}){
+info { //not scalar, info is type and from info type give the values required
+    count
+}
+}
+}
+
+In graphql response fields can be dynamic along with value i.e request only required response fields
+in rest api, response values only can be dynamic
+query variables
+
+{
+"characterid": 8
+locationid: 8
+}
+query($characterid: Int!){
+character($characterid){ //for character with id 8 get the details like name
+	name
+}
+
+}
+
+GraphQL Mutations - Used to Create data
+
+mutation{
+
+createlocation(location: {name: "Aus", })
+{
+id //to get id for above
+}
+
+}
+
+mutation is hybrid - creates and gets the data
